@@ -4,6 +4,8 @@
 #include <TF1.h>
 #include <TCanvas.h>
 #include <TString.h>
+#include <TLatex.h>
+#include <TLegend.h>
 
 void solve(const Int_t N = 1000) 
 {
@@ -27,6 +29,7 @@ void solve(const Int_t N = 1000)
 
     std::cout << fitResArr.at(0)->MinFcnValue() << std::endl;
 
+    // Алгоритм подгонки
     Int_t i = 1;
     Double_t D = 0;
     do {
@@ -37,8 +40,17 @@ void solve(const Int_t N = 1000)
         i++;
     } while(D > 3.84);
 
+    // Вывод результатов
     std::cout << std::endl << std::endl << "----------------" << std::endl
         << Form("Полиномы %d и %d степеней дают одинаковое качество подгонки", i, i-1) << std::endl 
         << Form("Тестовая статистика при этом равна D = %f", D) << std::endl
         << std::endl;
+
+    // Добавление легенды
+    TLatex latex;
+    latex.SetNDC();
+    latex.SetTextSize(0.03);
+    latex.DrawLatex(0.15, 0.15, Form("D = %.2f; i = %d", D, i-1));
+
+    c->SaveAs(Form("F-test_N-%d.png", N));
 }
