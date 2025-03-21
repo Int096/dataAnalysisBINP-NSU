@@ -27,8 +27,6 @@ void solve(const Int_t N = 1000)
     TF1 fitFunc0("fitFunc0", pol, -100, 100);
     fitResArr.push_back(hist->Fit("fitFunc0", "+LS"));
 
-    std::cout << fitResArr.at(0)->MinFcnValue() << std::endl;
-
     // Алгоритм подгонки
     Int_t i = 1;
     Double_t D = 0;
